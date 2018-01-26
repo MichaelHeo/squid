@@ -1,30 +1,46 @@
-<div class="jumbotron" style="padding-top: 80px;">
+<div class="jumbotron" style="padding-top: 100px;">
 	<h1 class="text-center">Squid Tags</h1>
 </div>
 
 <div class="row">
 	<div class="col-md-12">
-		<form>
-			<div class="input-group">
-				<span class="input-group-btn">
-					<a href="/fotos/new" class="btn btn-primary" type="button">
-						Nova foto
-					</a>
-				</span>
-				<input class="form-control" placeholder="filtrar pelo título da foto" 
-					ng-model="filtro" ng-model-options="{ debounce: 500 }">
-		</form>
+        <div class="alert alert-warning" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            Hashtags para teste: #developer, #instagood. Para verificar outros, verifique as hashtags usadas nas fotos do perfil @mikaheo
+        </div>
+    
+        <div>
+            <form>
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <a href="/fotos/new" class="btn btn-primary" type="button">
+                            Nova foto
+                        </a>
+                    </span>
+                    <input class="form-control" placeholder="filtrar pelo título da foto" 
+                        ng-model="filtro" ng-model-options="{ debounce: 500 }">
+            </form>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="list-group">
+                    <a href="#" class="list-group-item active">
+                        Cras justo odio
+                    </a>
+                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                    <a href="#" class="list-group-item">Morbi leo risus</a>
+                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                    <a href="#" class="list-group-item">Vestibulum at eros</a>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <p>{{mensagem}}</p>
+            </div>
+        </div>
 	</div> <!-- fim col-md-12 -->
 </div> <!-- fim row -->
-
-<div class="row">
-    <meu-painel class="col-md-2 painel-animado" ng-repeat="foto in fotos | filter: filtro" titulo="{{foto.titulo}}">
-        <minha-foto url="{{foto.url}}" alt="{{foto.titulo}}"></minha-foto>
-
-		<a class="btn btn-primary btn-block" href="/fotos/edit/{{foto._id}}">
-			Editar
-		</a>
-		<meu-botao-perigo nome="Remover" acao="remover(foto)">Remover</meu-botao-perigo>
-    </meu-painel>
-</div>
-<meus-titulos></meus-titulos>

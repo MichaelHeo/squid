@@ -31,10 +31,10 @@
             <div class="col-sm-3">
                 <div class="list-group">
                     <a href="#" class="list-group-item active">
-                        Clique em uma das Hashtags abaixo
+                        Escolha uma Hashtag abaixo
                     </a>
                     <div class="input-group" ng-repeat="tag in tagData">
-                        <button ng-click="getPic(tag.name)" class="list-group-item">#{{tag.name}}</button>
+                        <button ng-click="getPic(tag.name)" class="list-group-item"><b>#</b>{{tag.name}}</button>
                         <span class="input-group-btn">
                             <button ng-click="removeTag(tag.name)" class="btn btn-danger" data-toggle="modal">X</button>
                         </span>
@@ -42,27 +42,19 @@
                 </div>
             </div>
             <div class="col-sm-9">
-                <p>{{mensagem}}</p>
+                <div ng-if="trustedUrl">
+                    <div ng-repeat="t in trustedUrl">
+                        <video width="400" controls>
+                            <source ng-src="{{t}}" type="video/mp4">
+                            <source ng-src="{{t}}" type="video/ogg">
+                        </video>
+                    </div>
+                </div>
+                <div class="input-group" ng-repeat="pic in picResult">
+                    <img src="{{pic.images.standard_resolution.url}}" height="200" style="border-radius: 10px;">
+                </div>
             </div>
         </div>
 
-         <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                        <h4 class="modal-title">Opa!</h4>
-                    </div>
-                    <div class="modal-body">
-                        Você deseja deletar essa Hashtag?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
-                        <button type="button" class="btn btn-primary" ng-click="removeTag()">Sim</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
 	</div> <!-- fim col-md-12 -->
 </div> <!-- fim row -->

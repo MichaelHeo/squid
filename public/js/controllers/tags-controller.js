@@ -1,4 +1,4 @@
-angular.module('desafiosquid').controller('TagsController', function($scope, $http, $window) {
+angular.module('desafiosquid').controller('TagsController', function($scope, $http, $window, $sce) {
 	
     $scope.tag_name = ''
     $scope.mensagem = 'teste'
@@ -25,6 +25,7 @@ angular.module('desafiosquid').controller('TagsController', function($scope, $ht
         let d = {
             "name": $scope.tag_name
         }
+        console.log(d)
         $http({
             method: "POST",
             data: d,
@@ -38,16 +39,25 @@ angular.module('desafiosquid').controller('TagsController', function($scope, $ht
     }
 
     $scope.getPic = function(name){
+        $scope.picResult = ''
         let d = {
             "name": name
         }
-        console.log(d)
+
         $http({
-            method: "GET",
+            method: "POST",
             data: d,
             url: "http://localhost:3000/find/instagram"
         }).then(function(response){
-            console.log(response)
+            $scope.trustedUrl = []
+            if(response.data.data[0].videos){
+                for(i in response.data.data){
+                    $scope.trustedUrl.push($sce.trustAsResourceUrl(response.data.data[i].videos.standard_resolution.url))
+                }
+            } else {
+                $scope.picResult = response.data.data
+                console.log($scope.picResult)
+            }
         }, function(error){
             console.log(error)
         })

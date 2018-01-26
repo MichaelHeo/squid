@@ -1,11 +1,12 @@
 angular.module('desafiosquid').controller('TagsController', function($scope, $http, $window, $sce) {
 	
+    var api_link= 'https://instahashapi.herokuapp.com'
     $scope.tag_name = ''
     $scope.mensagem = 'teste'
 
     $http({
         method: "GET",
-        url: "http://localhost:3000/find"
+        url: api_link + "/find"
     }).then(function(response){
         $scope.tagData = response.data
     }, function(error){
@@ -25,17 +26,16 @@ angular.module('desafiosquid').controller('TagsController', function($scope, $ht
         let d = {
             "name": $scope.tag_name
         }
-        console.log(d)
         $http({
             method: "POST",
             data: d,
-            url: "http://localhost:3000/insert"
+            url: api_link + "/insert"
         }).then(function(response){
             console.log(response)
+            $window.location.reload();
         }, function(error){
             console.log(error)
         })
-        $window.location.reload();
     }
 
     $scope.getPic = function(name){
@@ -47,7 +47,7 @@ angular.module('desafiosquid').controller('TagsController', function($scope, $ht
         $http({
             method: "POST",
             data: d,
-            url: "http://localhost:3000/find/instagram"
+            url: api_link + "/find/instagram"
         }).then(function(response){
             $scope.trustedUrl = []
             if(response.data.data[0].videos){
@@ -70,14 +70,14 @@ angular.module('desafiosquid').controller('TagsController', function($scope, $ht
         $http({
             method: "DELETE",
             data: d,
-            url: "http://localhost:3000/delete"
+            url: api_link + "/delete"
         }).then(function(response){
             console.log(response)
+            $window.location.reload();
         }, function(error){
             console.log(error)
         })
 
-        $window.location.reload();
     }
 
 });

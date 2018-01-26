@@ -7,19 +7,20 @@
         <div class="alert alert-warning" role="alert">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span class="sr-only">Error:</span>
-            Hashtags para teste: #developer, #instagood. Para verificar outros, verifique as hashtags usadas nas fotos do perfil @mikaheo
+            Hashtags para teste: #developer, #instagood. Para verificar outros, veja as hashtags usadas nas fotos do perfil @mikaheo
         </div>
     
         <div>
             <form>
                 <div class="input-group">
                     <span class="input-group-btn">
-                        <a href="/fotos/new" class="btn btn-primary" type="button">
-                            Nova foto
-                        </a>
+                        <button ng-click="addTag()" class="btn btn-primary" type="button">
+                            Adicionar Tag
+                        </button>
                     </span>
-                    <input class="form-control" placeholder="filtrar pelo título da foto" 
-                        ng-model="filtro" ng-model-options="{ debounce: 500 }">
+                    <input class="form-control" placeholder="Digite o nome da nova hashtag" 
+                        ng-model="tag_name" ng-model-options="{ debounce: 500 }">
+                </div>
             </form>
         </div>
 
@@ -30,17 +31,38 @@
             <div class="col-sm-3">
                 <div class="list-group">
                     <a href="#" class="list-group-item active">
-                        Cras justo odio
+                        Clique em uma das Hashtags abaixo
                     </a>
-                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item">Morbi leo risus</a>
-                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item">Vestibulum at eros</a>
+                    <div class="input-group" ng-repeat="tag in tagData">
+                        <button ng-click="getPic(tag.name)" class="list-group-item">#{{tag.name}}</button>
+                        <span class="input-group-btn">
+                            <button ng-click="removeTag(tag.name)" class="btn btn-danger" data-toggle="modal">X</button>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-9">
                 <p>{{mensagem}}</p>
             </div>
         </div>
+
+         <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                        <h4 class="modal-title">Opa!</h4>
+                    </div>
+                    <div class="modal-body">
+                        Você deseja deletar essa Hashtag?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                        <button type="button" class="btn btn-primary" ng-click="removeTag()">Sim</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 	</div> <!-- fim col-md-12 -->
 </div> <!-- fim row -->
